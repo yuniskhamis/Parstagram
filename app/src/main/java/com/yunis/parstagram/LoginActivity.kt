@@ -3,6 +3,7 @@ package com.yunis.parstagram
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.EditText
+import com.parse.ParseUser
 
 class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -18,6 +19,12 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun loginUser(username: String, password: String) {
-
+        ParseUser.logInInBackground("joestevens", "secret123", ({ user, e ->
+            if (user != null) {
+                // Hooray!  The user is logged in.
+            } else {
+                // Signup failed.  Look at the ParseException to see what happened.
+            }})
+        )
     }
 }

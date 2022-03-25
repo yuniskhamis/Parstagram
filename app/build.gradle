@@ -33,7 +33,7 @@ android {
 
 dependencies {
     //Parse Android SDK
-    implementation "com.github.parse-community.Parse-SDK-Android:parse:latest-version-here"
+    implementation "com.github.parse-community.Parse-SDK-Android:parse:1.26.0"
 
     implementation 'androidx.core:core-ktx:1.7.0'
     implementation 'androidx.appcompat:appcompat:1.4.1'

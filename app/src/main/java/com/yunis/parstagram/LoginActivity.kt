@@ -2,7 +2,10 @@ package com.yunis.parstagram
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import android.widget.Button
 import android.widget.EditText
+import android.widget.Toast
 import com.parse.ParseUser
 
 class LoginActivity : AppCompatActivity() {
@@ -12,8 +15,11 @@ class LoginActivity : AppCompatActivity() {
 
         val username = findViewById<EditText>(R.id.edt_username).text.toString()
         val password = findViewById<EditText>(R.id.edt_password).text.toString()
+        val loginButton = findViewById<Button>(R.id.btn_login)
 
-        loginUser(username, password)
+        loginButton.setOnClickListener {
+            loginUser(username, password)
+        }
 
 
     }
@@ -21,10 +27,15 @@ class LoginActivity : AppCompatActivity() {
     private fun loginUser(username: String, password: String) {
         ParseUser.logInInBackground(username, password, ({ user, e ->
             if (user != null) {
-                // Hooray!  The user is logged in.
+                Log.i(TAG,"Successfully logged in user")
             } else {
-                // Signup failed.  Look at the ParseException to see what happened.
+                e.printStackTrace()
+                Toast.makeText(this,"Error logging in",Toast.LENGTH_SHORT).show()
             }})
         )
+    }
+
+    companion object {
+        const val TAG = "LoginActivity"
     }
 }

@@ -15,6 +15,9 @@ class LoginActivity : AppCompatActivity() {
         setContentView(R.layout.activity_login)
 
 
+        if (ParseUser.getCurrentUser() != null) {
+            gotoMainActivity()
+        }
         val loginButton = findViewById<Button>(R.id.btn_login)
 
         loginButton.setOnClickListener {

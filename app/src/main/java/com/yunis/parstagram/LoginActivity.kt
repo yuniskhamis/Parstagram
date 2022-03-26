@@ -45,8 +45,14 @@ class LoginActivity : AppCompatActivity() {
 
         user.signUpInBackground { e ->
             if (e == null) {
+
+                gotoMainActivity()
+                Toast.makeText(this,"Successfully signed up",Toast.LENGTH_SHORT).show()
+
                 // Hooray! Let them use the app now.
             } else {
+                Toast.makeText(this,"Signup not successful",Toast.LENGTH_SHORT).show()
+
                 e.printStackTrace()
                 // Sign up didn't succeed. Look at the ParseException
                 // to figure out what went wrong

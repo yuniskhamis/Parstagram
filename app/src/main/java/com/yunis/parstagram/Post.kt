@@ -22,9 +22,10 @@ class Post : ParseObject() {
         put(KEY_IMAGE,parseFile)
     }
 
-    fun getUser(): String? {
-        return getString(KEY_USER)
+    fun getUser(): ParseUser? {
+        return getParseUser(KEY_USER)
     }
+
     fun setUser(user: ParseUser) {
         put(KEY_USER,user)
     }

@@ -51,8 +51,8 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this@MainActivity, LoginActivity::class.java)
             startActivity(intent)
         }
-
     }
+
     // Send a Post object to our Parse server
     fun submitPost(description: String, user: ParseUser, file: File) {
         // create the Post object

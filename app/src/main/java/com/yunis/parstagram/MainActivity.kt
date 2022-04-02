@@ -13,6 +13,7 @@ import android.widget.EditText
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.core.content.FileProvider
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.parse.*
 import java.io.File
 
@@ -42,6 +43,18 @@ class MainActivity : AppCompatActivity() {
         takePictureButton.setOnClickListener {
             // Launch camera to let user take picture
             onLaunchCamera()
+        }
+
+        findViewById<BottomNavigationView>(R.id.bottom_navigation).setOnItemSelectedListener {
+            item ->
+            when(item.itemId){
+                R.id.action_home-> {
+                }
+                R.id.action_compose ->{}
+                R.id.action_profile->{}
+
+            }
+            true
         }
 
         val logOutButton = findViewById<Button>(R.id.btnLogout)

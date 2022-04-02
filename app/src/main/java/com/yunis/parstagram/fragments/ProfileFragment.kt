@@ -3,7 +3,6 @@ package com.yunis.parstagram.fragments
 import android.util.Log
 import com.parse.ParseQuery
 import com.parse.ParseUser
-import com.yunis.parstagram.MainActivity
 import com.yunis.parstagram.Post
 
 class ProfileFragment: FeedFragment() {
@@ -25,7 +24,9 @@ class ProfileFragment: FeedFragment() {
                         Log.i(TAG, "done: " + p.getDescription()+" usernamre="+p.getUser()?.username)
                     }
                     allPosts.addAll(posts)
-                    adapter.notifyDataSetChanged()
+                  //  adapter.notifyDataSetChanged()
+                    swipeContainer.setRefreshing(false)
+
                 }
             }
         }

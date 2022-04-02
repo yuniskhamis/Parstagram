@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.parse.ParseQuery
 import com.yunis.parstagram.MainActivity
 import com.yunis.parstagram.Post
@@ -18,6 +19,8 @@ open class FeedFragment : Fragment() {
     lateinit var recyclerView: RecyclerView
     lateinit var adapter: PostAdapter
     var allPosts:MutableList<Post> = mutableListOf()
+    lateinit var swipeContainer: SwipeRefreshLayout
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -29,11 +32,14 @@ open class FeedFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        recyclerView = view.findViewById(R.id.postRecycleView)
+        recyclerView = view.findViewById(R.id.postRecyclerView)
         adapter = PostAdapter(requireContext(), allPosts)
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
-        queryPosts()
+        swipeContainer = view.findViewById(R.id.swipeContainer)
+        swipeContainer.setOnRefreshListener {
+            queryPosts()
+        }
     }
 
 
@@ -54,7 +60,9 @@ open class FeedFragment : Fragment() {
                         )
                     }
                     allPosts.addAll(posts)
-                    adapter.notifyDataSetChanged()
+                    //adapter.notifyDataSetChanged()
+                    swipeContainer.setRefreshing(false)
+
                 }
             }
         }

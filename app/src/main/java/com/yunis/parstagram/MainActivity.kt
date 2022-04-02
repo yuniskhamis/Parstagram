@@ -13,8 +13,12 @@ import android.widget.EditText
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.core.content.FileProvider
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.parse.*
+import com.yunis.parstagram.fragments.ComposeFragment
+import com.yunis.parstagram.fragments.FeedFragment
 import java.io.File
 
 class MainActivity : AppCompatActivity() {
@@ -22,20 +26,34 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
          //queryPosts()
-
+        val fragmentManager: FragmentManager = supportFragmentManager
 
 
         findViewById<BottomNavigationView>(R.id.bottom_navigation).setOnItemSelectedListener {
             item ->
+            var fragmentToShow: Fragment? = null
             when(item.itemId){
                 R.id.action_home-> {
+                   fragmentToShow = FeedFragment()
                 }
-                R.id.action_compose ->{}
-                R.id.action_profile->{}
-
+                R.id.action_compose ->{
+                    fragmentToShow = ComposeFragment()
+                }
+                R.id.action_profile->{
+                    //fragmentToShow = ProfileFragment()
+                }
             }
+
+
+            if (fragmentToShow != null) {
+                fragmentManager.beginTransaction().replace(R.id.flContainer, fragmentToShow).commit()
+            }
+
             true
         }
+
+        // Set default selection
+        findViewById<BottomNavigationView>(R.id.bottom_navigation).selectedItemId = R.id.action_home
 
         val logOutButton = findViewById<Button>(R.id.btnLogout)
         logOutButton.setOnClickListener {

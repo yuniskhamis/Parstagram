@@ -19,6 +19,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.FileProvider
 import com.parse.ParseFile
 import com.parse.ParseUser
+import com.yunis.parstagram.LoginActivity
 import com.yunis.parstagram.MainActivity
 import com.yunis.parstagram.Post
 import com.yunis.parstagram.R
@@ -41,6 +42,15 @@ class ComposeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         ivPreview = view.findViewById(R.id.imageView)
+
+
+        val logOutButton = view.findViewById<Button>(R.id.btnLogout)
+        logOutButton.setOnClickListener {
+            // Launch camera to let user take picture
+            ParseUser.logOut()
+            val intent = Intent(requireContext(), LoginActivity::class.java)
+            startActivity(intent)
+        }
 
         val submitButton = view.findViewById<Button>(R.id.btnSubmit)
         submitButton.setOnClickListener {
@@ -73,12 +83,12 @@ class ComposeFragment : Fragment() {
         post.saveInBackground { exception ->
             if (exception != null) {
                 // Something has went wrong
-                Log.e(MainActivity.TAG, "Error while saving post")
+                Log.e(TAG, "Error while saving post")
                 Toast.makeText(requireContext(), "Description is missing!", Toast.LENGTH_SHORT).show()
                 exception.printStackTrace()
             } else {
                 Toast.makeText(requireContext(), "Successfully saved post!", Toast.LENGTH_SHORT).show()
-                Log.i(MainActivity.TAG, "Successfully saved post")
+                Log.i(TAG, "Successfully saved post")
             }
         }
     }
@@ -115,11 +125,11 @@ class ComposeFragment : Fragment() {
         // Use `getExternalFilesDir` on Context to access package-specific directories.
         // This way, we don't need to request external read/write runtime permissions.
         val mediaStorageDir =
-            File(requireContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES), MainActivity.TAG)
+            File(requireContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES), TAG)
 
         // Create the storage directory if it does not exist
         if (!mediaStorageDir.exists() && !mediaStorageDir.mkdirs()) {
-            Log.d(MainActivity.TAG, "failed to create directory")
+            Log.d(TAG, "failed to create directory")
         }
 
         // Return the file target for the photo based on filename
@@ -139,6 +149,10 @@ class ComposeFragment : Fragment() {
                 Toast.makeText(requireContext(), "Picture wasn't taken!", Toast.LENGTH_SHORT).show()
             }
         }
+    }
+
+    companion object {
+        const val TAG = "ComposeFragment"
     }
 
 
